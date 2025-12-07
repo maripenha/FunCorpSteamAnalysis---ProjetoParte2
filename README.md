@@ -8,17 +8,7 @@ Este repositório contém os códigos, dados e o relatório final da **Fase 2 da
 
 O projeto está organizado em módulos Python dentro da pasta `src/` para manter a modularidade do pipeline de ETL (Extração, Transformação e Carga), como no exemplo abaixo:
 
-├── data/ 
-│└── raw/ 
-│└── steam_games.csv # Dataset original. 
-├── notebooks/ 
-│└── fase2_relatorio.ipynb # Notebook principal contendo a execução das consultas e gráficos. 
-├── src/ 
-│ ├── consultas.py # Funções para as 5 perguntas de negócio. 
-│ ├── preprocess.py # Funções para Carga (load_data) e Pré-processamento (preprocess). 
-│ ├── viz.py # Funções para gerar os 3 gráficos solicitados. 
-│ └── estilo_plot.py # Módulo para padronização estética das visualizações. 
-└── (Relatório Final em PDF/DOCX)
+![alt text](image.png)
 
 ## 🛠️ Requisitos e Configuração
 
