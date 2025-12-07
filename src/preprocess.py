@@ -8,7 +8,7 @@ def load_data(path: str) -> pd.DataFrame:
 
 def _split_multi(val):
     if pd.isna(val): return []
-    # Normaliza separadores ; e | para lista
+    
     return [s.strip() for s in str(val).replace('|',';').split(';') if s.strip()]
 
 def preprocess(df: pd.DataFrame) -> pd.DataFrame:
@@ -18,7 +18,6 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df['Release date'] = pd.to_datetime(df['Release date'], errors='coerce')
     df['year'] = df['Release date'].dt.year
 
-    # Numéricos principais
     num_cols = [
         'Price','DLC count','Metacritic score','Positive','Negative',
         'Screenshots','Movies','User score','Achievements','Recommendations',
@@ -39,7 +38,7 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df['categories_list'] = df['Categories'].apply(_split_multi) if 'Categories' in df.columns else [[]]*len(df)
     df['tags_list'] = df['Tags'].apply(_split_multi) if 'Tags' in df.columns else [[]]*len(df)
 
-    # Suporte a sistemas operacionais (booleans já vêm como 0/1 ou True/False)
+    # Suporte a sistemas operacionais 
     df['has_windows'] = df['Windows'].astype(bool) if 'Windows' in df.columns else False
     df['has_mac'] = df['Mac'].astype(bool) if 'Mac' in df.columns else False
     df['has_linux'] = df['Linux'].astype(bool) if 'Linux' in df.columns else False

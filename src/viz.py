@@ -1,5 +1,3 @@
-#funções que geram gráficos
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import estilo_plot
@@ -45,7 +43,7 @@ def grafico_singleplayer_indie_estrategia(df: pd.DataFrame):
     plt.tight_layout()
     return ax
 
-# Gráfico extra: média de avaliações positivas pago vs gratuito por ano (por gênero)
+# Gráfico extra: média de avaliações positivas pago vs gratuito por ano (por gênero mas ressaltando Indie para confecção do gráfico.) 
 def grafico_paid_free_por_ano(df: pd.DataFrame, genero='indie'):
     aplicar_estilo()
     sub = df[df['year'].between(2010, 2022)].copy()

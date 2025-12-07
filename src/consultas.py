@@ -28,7 +28,6 @@ def rpg_stats(df: pd.DataFrame) -> pd.Series:
 # P3: Top 5 publishers que mais publicam jogos pagos + médias e medianas de positivas
 def top5_publishers_paid(df: pd.DataFrame) -> pd.DataFrame:
     paid = df[df['is_paid'] & df['Publishers'].notna()]
-    # Publishers podem ter múltiplos nomes separados; vamos considerar o primeiro como principal
     paid = paid.copy()
     paid['publisher_main'] = paid['Publishers'].apply(lambda s: str(s).split(';')[0].split('|')[0].strip())
     pubs_top = paid.groupby('publisher_main').size().sort_values(ascending=False).head(5).index
