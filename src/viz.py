@@ -6,13 +6,13 @@ from estilo_plot import aplicar_estilo, PALETA
 # Gráfico 1: Percentual de jogos que possuem suporte a cada SO (um voto por SO suportado)
 def grafico_percentual_por_sistema(df: pd.DataFrame):
     aplicar_estilo()
-    votos = []
-    for _, row in df.iterrows():
-        if row.get('has_windows'): votos.append('Windows')
-        if row.get('has_mac'): votos.append('Mac')
-        if row.get('has_linux'): votos.append('Linux')
-    s = pd.Series(votos).value_counts()
-    pct = (s / s.sum()) * 100
+    total = len(df)
+    suporte = {
+        'Windows': df['has_windows'].sum(),
+        'Mac': df['has_mac'].sum(),
+        'Linux': df['has_linux'].sum()
+    }
+    pct = pd.Series(suporte) / total * 100
     ax = pct.sort_values(ascending=False).plot(kind='bar', color=PALETA[:len(pct)])
     ax.set_title('Percentual de suporte por sistema operacional')
     ax.set_ylabel('Percentual (%)')
@@ -21,6 +21,7 @@ def grafico_percentual_por_sistema(df: pd.DataFrame):
         ax.text(i, v + 0.5, f'{v:.1f}%', ha='center', fontsize=9)
     plt.tight_layout()
     return ax
+
 
 # Gráfico 2: Número total de jogos single-player (Indie e Strategy) por ano (2010–2020)
 def grafico_singleplayer_indie_estrategia(df: pd.DataFrame):

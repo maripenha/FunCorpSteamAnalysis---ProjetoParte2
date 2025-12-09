@@ -38,10 +38,15 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df['categories_list'] = df['Categories'].apply(_split_multi) if 'Categories' in df.columns else [[]]*len(df)
     df['tags_list'] = df['Tags'].apply(_split_multi) if 'Tags' in df.columns else [[]]*len(df)
 
-    # Suporte a sistemas operacionais 
-    df['has_windows'] = df['Windows'].astype(bool) if 'Windows' in df.columns else False
-    df['has_mac'] = df['Mac'].astype(bool) if 'Mac' in df.columns else False
-    df['has_linux'] = df['Linux'].astype(bool) if 'Linux' in df.columns else False
+    # Suporte a sistemas operacionais — corrigido
+    def limpar_so(valor):
+        if isinstance(valor, str):
+            return valor.strip().lower() != 'falso'
+        return bool(valor)
+
+    df['has_windows'] = df['Windows'].apply(limpar_so) if 'Windows' in df.columns else False
+    df['has_mac'] = df['Mac'].apply(limpar_so) if 'Mac' in df.columns else False
+    df['has_linux'] = df['Linux'].apply(limpar_so) if 'Linux' in df.columns else False
 
     # Single-player a partir de Categories
     df['is_singleplayer'] = df['categories_list'].apply(lambda cats: any('Single-player' in c for c in cats))
